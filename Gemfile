@@ -30,6 +30,10 @@ gem "rmagick"
 
 gem 'carrierwave'
 
+gem 'kaminari'
+
+gem 'awesome_print'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
