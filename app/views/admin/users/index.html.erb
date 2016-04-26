@@ -1,0 +1,22 @@
+<h1>Users</h1>
+
+<hr>
+
+<%= paginate @users %>
+
+<table>
+	<tr>
+		<th>Full Name</th>
+		<th>Signed Up</th>
+		<th>email</th>
+		<th>delete</th>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.full_name %></td>
+			<td><%= formatted_date(user.created_at) %></td>
+			<td><%= user.email %></td>
+			<td><%= link_to "delete", admin_user_path(user), method: :delete, data: {confirm: "You sure?"} %></td>
+		</tr>
+	<% end %>
+</table>
