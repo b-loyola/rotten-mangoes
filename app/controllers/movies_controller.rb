@@ -1,7 +1,16 @@
 class MoviesController < ApplicationController
 
   def index
-      @movies = Movie.search(params)
+    if params[:movie]
+      runtime = params[:movie][:runtime_in_minutes].split("-")
+      min = runtime[0]
+      max = runtime[1] ||= Movie.maximum("runtime_in_minutes")
+      title = params[:movie][:title]
+      director = params[:movie][:director]
+      @movies = Movie.title_contains(title).director_contains(director).runtime_between(min,max)
+    else
+      @movies = Movie.all
+    end
   end
 
   def show

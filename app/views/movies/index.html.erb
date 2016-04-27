@@ -4,22 +4,24 @@
 <hr>
 
 <%= form_tag movies_path, method: 'get' do %>
-  <div>
-  	<%= text_field_tag :title, params[:title], placeholder: "Title" %>
-  </div>
-  <div>
-  	<%= text_field_tag :director, params[:director], placeholder: "Director" %>
-  </div>
-  <div>
-  	<%= select_tag :runtime_in_minutes, options_for_select(
-  		[
-  			["Any runtime", "0"],
-  			["90 minutes and under", "0-90"],
-  			["Over 90 and up to 120 minutes", "90-120"],
-  			["Over 120 minutes", "120"]
-  		]
-  	) %>
-  </div>
+  <%= fields_for :movie do |f| %>
+    <div>
+    	<%= f.text_field :title, placeholder: "Title" %>
+    </div>
+    <div>
+    	<%= f.text_field :director, placeholder: "Director" %>
+    </div>
+    <div>
+    	<%= f.select :runtime_in_minutes, options_for_select(
+    		[
+    			["Any runtime", "0"],
+    			["90 minutes and under", "0-90"],
+    			["Over 90 and up to 120 minutes", "90-120"],
+    			["Over 120 minutes", "120"]
+    		]
+    	) %>
+    </div>
+  <% end %>
   <div>
   	<%= submit_tag "Search", name: nil %> 
   </div>
