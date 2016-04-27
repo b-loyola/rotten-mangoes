@@ -2,18 +2,17 @@ class Movie < ActiveRecord::Base
 
 	has_many :reviews
 
-	validates :title, presence: true
+	validates :title, presence: true, uniqueness: true
 	validates :director, presence: true
 	validates :runtime_in_minutes, numericality: { only_integer: true }
 	validates :description, presence: true
-	validates :poster_image_url, presence: true
 	validates :release_date, presence: true
 	validate :release_date_is_in_the_past
 
-	mount_uploader :poster_image_url, MoviePosterUploader
+	mount_uploader :poster, PosterUploader
+	# validates_presence_of :poster
 
-	scope :title_contains, ->(q) {where("title LIKE ?", "%" + q + "%")}
-	scope :director_contains, ->(q) {where("director LIKE ?", "%" + q + "%")}
+	scope :search_title_or_director, ->(q) {where("title LIKE :q OR director LIKE :q", q: "%" + q + "%")}
 	scope :runtime_between, ->(min,max) {where("runtime_in_minutes > ? AND runtime_in_minutes <= ?", min, max)}
 
 	def review_average

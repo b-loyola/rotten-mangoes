@@ -5,11 +5,10 @@ class MoviesController < ApplicationController
       runtime = params[:movie][:runtime_in_minutes].split("-")
       min = runtime[0]
       max = runtime[1] || Movie.maximum("runtime_in_minutes")
-      title = params[:movie][:title]
-      director = params[:movie][:director]
-      @movies = Movie.title_contains(title).director_contains(director).runtime_between(min,max)
+      query = params[:movie][:query]
+      @movies = Movie.search_title_or_director(query).runtime_between(min,max).order(release_date: :desc)
     else
-      @movies = Movie.all
+      @movies = Movie.order(release_date: :desc)
     end
   end
 
@@ -53,7 +52,7 @@ class MoviesController < ApplicationController
 
   protected
   	def movie_params
-  		params.require(:movie).permit(:title, :release_date, :director, :runtime_in_minutes, :poster_image_url, :description)
+  		params.require(:movie).permit(:title, :release_date, :director, :runtime_in_minutes, :poster, :remote_poster_url, :description)
   	end
 
 end

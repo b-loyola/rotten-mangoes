@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+/public/uploads/tmp
+/.byebug_history
+.byebug_history
+
+# Ignore image files
+/public/uploads/movie/poster/*

@@ -32,6 +32,8 @@ gem 'kaminari'
 
 gem 'awesome_print'
 
+gem 'omdbapi'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
