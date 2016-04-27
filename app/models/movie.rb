@@ -14,21 +14,19 @@ class Movie < ActiveRecord::Base
 
 	def self.search(params)
 
-		min_runtime = params[:runtime_in_minutes].split("-")[0] if params[:runtime_in_minutes]
-		max_runtime = params[:runtime_in_minutes].split("-")[1] if params[:runtime_in_minutes]
-		max_runtime = maximum("runtime_in_minutes") + 1 if max_runtime == nil
-
-		if params
-			where(
-				"title LIKE ?", "%#{params[:title]}%"
-			).where(
-				"director LIKE ?", "%#{params[:director]}%"
-			).where(
-				"runtime_in_minutes >= :min AND runtime_in_minutes < :max", {min: min_runtime, max: max_runtime}
-			)
-		else
-			all
-		end
+		min_runtime = params[:runtime_in_minutes] ? params[:runtime_in_minutes].split("-")[0] : 0
+		max_runtime = if params[:runtime_in_minutes] && params[:runtime_in_minutes].split("-")[1]
+										params[:runtime_in_minutes].split("-")[1]
+									else 
+										maximum("runtime_in_minutes")
+									end
+		where(
+			"title LIKE ?", "%#{params[:title]}%"
+		).where(
+			"director LIKE ?", "%#{params[:director]}%"
+		).where(
+			"runtime_in_minutes > :min AND runtime_in_minutes <= :max", {min: min_runtime, max: max_runtime}
+		)
 	end
 
 	def review_average

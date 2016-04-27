@@ -14,8 +14,8 @@
   	<%= select_tag :runtime_in_minutes, options_for_select(
   		[
   			["Any runtime", "0"],
-  			["Under 90 minutes", "0-90"],
-  			["Between 90 and 120 minutes", "90-120"],
+  			["90 minutes and under", "0-90"],
+  			["Over 90 and up to 120 minutes", "90-120"],
   			["Over 120 minutes", "120"]
   		]
   	) %>
