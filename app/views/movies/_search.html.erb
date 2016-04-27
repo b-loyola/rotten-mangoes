@@ -1,10 +1,7 @@
 <%= form_tag movies_path, method: 'get' do %>
   <%= fields_for :movie do |f| %>
     <div>
-    	<%= f.text_field :title, value: (params[:movie][:title] if params[:movie]), placeholder: "Title" %>
-    </div>
-    <div>
-    	<%= f.text_field :director, value: (params[:movie][:director] if params[:movie]), placeholder: "Director" %>
+    	<%= f.text_field :query, value: (params[:movie][:query] if params[:movie]), placeholder: "Search..." %>
     </div>
     <div>
     	<%= f.select :runtime_in_minutes, options_for_select(
