@@ -1,0 +1,23 @@
+<%= form_tag movies_path, method: 'get' do %>
+  <%= fields_for :movie do |f| %>
+    <div>
+    	<%= f.text_field :title, value: (params[:movie][:title] if params[:movie]), placeholder: "Title" %>
+    </div>
+    <div>
+    	<%= f.text_field :director, value: (params[:movie][:director] if params[:movie]), placeholder: "Director" %>
+    </div>
+    <div>
+    	<%= f.select :runtime_in_minutes, options_for_select(
+    		[
+    			["Any runtime", "0"],
+    			["90 minutes and under", "0-90"],
+    			["Over 90 and up to 120 minutes", "90-120"],
+    			["Over 120 minutes", "120"]
+    		]
+    	) %>
+    </div>
+  <% end %>
+  <div>
+  	<%= submit_tag "Search" %> 
+  </div>
+<% end %>

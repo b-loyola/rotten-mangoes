@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
     if params[:movie]
       runtime = params[:movie][:runtime_in_minutes].split("-")
       min = runtime[0]
-      max = runtime[1] ||= Movie.maximum("runtime_in_minutes")
+      max = runtime[1] || Movie.maximum("runtime_in_minutes")
       title = params[:movie][:title]
       director = params[:movie][:director]
       @movies = Movie.title_contains(title).director_contains(director).runtime_between(min,max)

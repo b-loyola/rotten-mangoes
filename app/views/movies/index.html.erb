@@ -3,39 +3,11 @@
 
 <hr>
 
-<%= form_tag movies_path, method: 'get' do %>
-  <%= fields_for :movie do |f| %>
-    <div>
-    	<%= f.text_field :title, placeholder: "Title" %>
-    </div>
-    <div>
-    	<%= f.text_field :director, placeholder: "Director" %>
-    </div>
-    <div>
-    	<%= f.select :runtime_in_minutes, options_for_select(
-    		[
-    			["Any runtime", "0"],
-    			["90 minutes and under", "0-90"],
-    			["Over 90 and up to 120 minutes", "90-120"],
-    			["Over 120 minutes", "120"]
-    		]
-    	) %>
-    </div>
-  <% end %>
-  <div>
-  	<%= submit_tag "Search", name: nil %> 
-  </div>
-<% end %>
+<%= render 'search' %>
 
 <hr>
 
 <% @movies.each do |movie| %>
-	<%= link_to image_tag(movie.poster_image_url.thumb), movie_path(movie) %>
-	<h2><%= link_to movie.title, movie_path(movie) %></h2>
-	<h3><%= formatted_date(movie.release_date) %></h3>
-	<h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes</h4>
-	<h5>Rating: <%= movie.review_average %>/10</h5>
-	<p><%= movie.description %></p>
-	<hr>
+	<%= render partial: 'movie', locals: {movie: movie} %>
 <% end %>
 
