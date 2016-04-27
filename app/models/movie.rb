@@ -12,22 +12,9 @@ class Movie < ActiveRecord::Base
 
 	mount_uploader :poster_image_url, MoviePosterUploader
 
-	def self.search(params)
-
-		min_runtime = params[:runtime_in_minutes] ? params[:runtime_in_minutes].split("-")[0] : 0
-		max_runtime = if params[:runtime_in_minutes] && params[:runtime_in_minutes].split("-")[1]
-										params[:runtime_in_minutes].split("-")[1]
-									else 
-										maximum("runtime_in_minutes")
-									end
-		where(
-			"title LIKE ?", "%#{params[:title]}%"
-		).where(
-			"director LIKE ?", "%#{params[:director]}%"
-		).where(
-			"runtime_in_minutes > :min AND runtime_in_minutes <= :max", {min: min_runtime, max: max_runtime}
-		)
-	end
+	scope :title_contains, ->(q) {where("title LIKE ?", "%" + q + "%")}
+	scope :director_contains, ->(q) {where("director LIKE ?", "%" + q + "%")}
+	scope :runtime_between, ->(min,max) {where("runtime_in_minutes > ? AND runtime_in_minutes <= ?", min, max)}
 
 	def review_average
     reviews.size > 0 ? reviews.sum(:rating_out_of_ten)/reviews.size : 0
