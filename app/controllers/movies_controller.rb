@@ -6,9 +6,9 @@ class MoviesController < ApplicationController
       min = runtime[0]
       max = runtime[1] || Movie.maximum("runtime_in_minutes")
       query = params[:movie][:query]
-      @movies = Movie.search_title_or_director(query).runtime_between(min,max).order(release_date: :desc)
+      @movies = Movie.search_title_or_director(query).runtime_between(min,max).order(release_date: :desc).paginate(page: params[:page], per_page: 12)
     else
-      @movies = Movie.order(release_date: :desc)
+      @movies = Movie.order(release_date: :desc).paginate(page: params[:page], per_page: 12)
     end
   end
 

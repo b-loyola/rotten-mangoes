@@ -2,15 +2,22 @@
 <html>
 	<head>
 	  <title>RottenMangoes</title>
+	  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico|Varela+Round' rel='stylesheet' type='text/css'>
 	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	  <%= csrf_meta_tags %>
 	</head>
 	<body>
-		<% flash.each do |key, value| %>
-			<%= content_tag :div, value %>
-		<% end %>
-		<%= yield %>
-		<%= render 'layouts/footer' %>
+		<%= render 'layouts/navbar' %>
+		<div class="container theme-showcase">
+			<% flash.each do |key, value| %>
+				<%= content_tag :div, value %>
+			<% end %>
+			<%= yield %>
+			<%= render 'layouts/footer' %>
+		</div>
 	</body>
 </html>

@@ -6,17 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-movies = OMDB.search('2016')
-movies.each do |movie|
-	m = OMDB.id(movie.imdb_id)
-	runtime, unit = m.runtime.split(" ")
-	runtime *= 60 if unit == "h"
-	m2 = Movie.create(
-		title: m.title, 
-		director: m.director, 
-		runtime_in_minutes: m.runtime.to_i, 
-		description: m.plot, 
-		remote_poster_url: m.poster,
-		release_date: DateTime.parse(m.released)
-	)
+collection = Imdb::Top250.new
+collection.movies.each_with_index do |m,i|
+	if i % 2 == 1
+		puts "#{i}: #{m.title}"
+		Movie.create(
+			title: m.title[/\d+\.\n\s+(.+)/,1], 
+			director: m.director.join(", "), 
+			runtime_in_minutes: m.length.to_i, 
+			description: m.plot_summary, 
+			remote_poster_url: m.poster,
+			release_date: m.release_date
+		)
+	end
 end

@@ -10,7 +10,7 @@ class Movie < ActiveRecord::Base
 	validate :release_date_is_in_the_past
 
 	mount_uploader :poster, PosterUploader
-	# validates_presence_of :poster
+	validates :poster, presence: true
 
 	scope :search_title_or_director, ->(q) {where("title LIKE :q OR director LIKE :q", q: "%" + q + "%")}
 	scope :runtime_between, ->(min,max) {where("runtime_in_minutes > ? AND runtime_in_minutes <= ?", min, max)}

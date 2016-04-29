@@ -1,7 +1,10 @@
-<%= link_to image_tag(movie.poster.thumb.to_s), movie_path(movie) %>
-<h2><%= link_to movie.title, movie_path(movie) %></h2>
-<h3><%= formatted_date(movie.release_date) %></h3>
-<h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes</h4>
-<h5>Rating: <%= movie.review_average %>/10</h5>
-<p><%= movie.description %></p>
-<hr>
+<div class="col-xs-12 col-sm-6 col-md-4">
+	<article class="movie">
+		<%= link_to image_tag(movie.poster.thumb.to_s), movie_path(movie) %>
+		<h4><%= link_to movie.title, movie_path(movie) %></h4>
+		<h4><%= formatted_date(movie.release_date) %></h4>
+		<h5><%= movie.director %></h5>
+		<h5><%= movie.runtime_in_minutes %> minutes</h5>
+		<h6>Rating: <%= movie.review_average %>/10</h6>
+	</article>
+</div>
