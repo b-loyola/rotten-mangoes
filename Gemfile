@@ -32,7 +32,11 @@ gem 'kaminari'
 
 gem 'awesome_print'
 
-gem 'omdbapi'
+gem 'imdb'
+
+gem 'bootstrap-sass'
+
+gem 'will_paginate'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

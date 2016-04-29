@@ -1,13 +1,15 @@
-<h1>Rotten Mangoes</h1>
-<%= link_to "Submit a Movie!", new_movie_path %>
 
-<hr>
+<div class="jumbotron">
+	<h1 class="welcome">Welcome to RottenMangoes!</h1>
+	<div class="spacer"></div>
+	<%= render 'search' %>
+	<div class="spacer"></div>
+</div>
 
-<%= render 'search' %>
+<%# javascript :defaults, 'endless_page' %>
 
-<hr>
+<section id="movies" class="movies-index">
+	<%= render @movies %>
+</section>
 
-<% @movies.each do |movie| %>
-	<%= render partial: 'movie', locals: {movie: movie} %>
-<% end %>
-
+<%= will_paginate @movies %>
