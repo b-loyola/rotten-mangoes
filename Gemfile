@@ -38,6 +38,8 @@ gem 'bootstrap-sass'
 
 gem 'will_paginate'
 
+gem 'twitter-typeahead-rails'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
